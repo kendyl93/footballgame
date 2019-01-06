@@ -37,8 +37,11 @@ class App extends Component {
     const { dispatch, name } = this.props;
     dispatch({ type: 'PITCH_IN' });
     sendPitchInToServer(name);
+    const overallCounter = {
+      RealMadrit: this.props.pot
+    };
     axios
-      .post('/footballgame-1f2b4.json', this.props.pot)
+      .post('/footballgame-1f2b4.json', overallCounter)
       .then(response => console.info(response))
       .catch(error => console.info(error));
   };
