@@ -10,6 +10,7 @@ app.use(cors());
 let pot = 0;
 let names = [];
 let serverNames = [];
+
 io.on('connection', socket => {
   socket.on('UPDATE_POT', state => {
     pot = state.pot;

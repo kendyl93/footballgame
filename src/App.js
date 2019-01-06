@@ -10,8 +10,13 @@ import {
 } from './socket';
 import { getAName } from './usernames';
 import SnackBarNotif from './SnackbarNotif';
+import axios from './axios_db';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    console.info(props);
+  }
   componentDidMount() {
     const { dispatch } = this.props;
     const name = getAName();
@@ -32,17 +37,14 @@ class App extends Component {
     const { dispatch, name } = this.props;
     dispatch({ type: 'PITCH_IN' });
     sendPitchInToServer(name);
+    axios
+      .post('/footballgame-1f2b4.json', this.props.pot)
+      .then(response => console.info(response))
+      .catch(error => console.info(error));
   };
 
   render() {
-    const {
-      pot,
-      name,
-      names,
-      snackbarIsOpen,
-      mode,
-      whoDidIt
-    } = this.props;
+    const { pot, name, names, snackbarIsOpen, mode, whoDidIt } = this.props;
     return (
       <Grid container justify="center">
         <Grid style={{ textAlign: 'center' }} item xs={12}>
