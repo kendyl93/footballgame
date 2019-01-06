@@ -1,4 +1,5 @@
-import { socket } from './index';
+import { socket } from '../index';
+import { actionTypes } from '../actions/actionsTypes';
 
 const reducer = (
   state = {
@@ -12,27 +13,27 @@ const reducer = (
   action
 ) => {
   switch (action.type) {
-    case 'PITCH_IN':
+    case actionTypes.PITCH_IN:
       state = { ...state, pot: ++state.pot, mode: 'pitch' };
       socket && socket.emit('UPDATE_POT', state);
       break;
-    case 'GET_ONE':
+    case actionTypes.GET_ONE:
       state = { ...state, pot: --state.pot, mode: 'get' };
       socket && socket.emit('UPDATE_POT', state);
       break;
-    case 'DELIVER_UPDATED_POT_TO_REDUCER':
+    case actionTypes.DELIVER_UPDATED_POT_TO_REDUCER:
       state = { ...state, pot: action.updatedPot.pot };
       break;
-    case 'CURRENT_POT_TO_REDUCER':
+    case actionTypes.CURRENT_POT_TO_REDUCER:
       state = { ...state, pot: action.pot };
       break;
-    case 'ASSIGNED_USERNAME':
+    case actionTypes.ASSIGNED_USERNAME:
       state = { ...state, name: action.name };
       break;
-    case 'PUT_ALL_NAMES_TO_REDUCER':
+    case actionTypes.PUT_ALL_NAMES_TO_REDUCER:
       state = { ...state, names: action.names };
       break;
-    case 'PICTHED_IN':
+    case actionTypes.PICTHED_IN:
       state = {
         ...state,
         snackbarIsOpen: true,
@@ -40,7 +41,7 @@ const reducer = (
         whoDidIt: action.name
       };
       break;
-    case 'GOT_ONE':
+    case actionTypes.GOT_ONE:
       state = {
         ...state,
         snackbarIsOpen: true,
@@ -48,7 +49,7 @@ const reducer = (
         whoDidIt: action.name
       };
       break;
-    case 'ANOTHER_ONE_PITCHED_IN':
+    case actionTypes.ANOTHER_ONE_PITCHED_IN:
       state = { ...state, snackbarIsOpen: false };
       break;
     default:
